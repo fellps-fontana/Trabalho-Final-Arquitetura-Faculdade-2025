@@ -10,6 +10,7 @@ namespace Sigma.Application.Services
     {
         private readonly IMapper _mapper;
         private readonly IProjetoRepository _projetoRepository;
+        
         public ProjetoService(IMapper mapper, IProjetoRepository projetoRepository)
         {
             _mapper = mapper;
@@ -19,6 +20,10 @@ namespace Sigma.Application.Services
         public async Task<bool> Inserir(ProjetoNovoDto model)
         {
             return await _projetoRepository.Inserir(_mapper.Map<Projeto>(model));
+        }
+        public async Task<List<Projeto>> BuscarTodos()
+        {
+            return await _projetoRepository.BuscarTodos();
         }
     }
 }
