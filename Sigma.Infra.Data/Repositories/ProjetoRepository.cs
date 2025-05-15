@@ -1,4 +1,5 @@
-﻿using Sigma.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Sigma.Domain.Entities;
 using Sigma.Domain.Interfaces.Repositories;
 using Sigma.Infra.Data.Context;
 
@@ -18,6 +19,11 @@ namespace Sigma.Infra.Data.Repositories
            await _dbContext.Set<Projeto>().AddAsync(entidade);
            await _dbContext.SaveChangesAsync();
            return true;
+        }
+
+        public async Task<List<Projeto>> BuscarTodos()
+        {
+            return await _dbContext.Projetos.ToListAsync();
         }
     }
 }
