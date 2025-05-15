@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Sigma.Application.Dtos;
 using Sigma.Application.Interfaces;
 using Sigma.Domain.Dtos;
 
@@ -20,6 +21,12 @@ namespace Sigma.API.Controllers
         public async Task<IActionResult> Inserir([FromBody] ProjetoNovoDto model)
         {
             return new JsonResult(await _projetoService.Inserir(model));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Buscar() {
+            var projetos = await _projetoService.BuscarTodos();
+            return Ok(projetos);
         }
     }
 }
