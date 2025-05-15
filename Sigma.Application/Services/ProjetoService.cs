@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Sigma.Application.Dtos;
 using Sigma.Application.Interfaces;
 using Sigma.Domain.Dtos;
 using Sigma.Domain.Entities;
@@ -21,9 +22,10 @@ namespace Sigma.Application.Services
         {
             return await _projetoRepository.Inserir(_mapper.Map<Projeto>(model));
         }
-        public async Task<List<Projeto>> BuscarTodos()
+        public async Task<List<ProjetosDto>> BuscarTodos()
         {
-            return await _projetoRepository.BuscarTodos();
+            var projetos = await _projetoRepository.BuscarTodos();
+            return _mapper.Map<List<ProjetosDto>>(projetos);
         }
     }
 }
