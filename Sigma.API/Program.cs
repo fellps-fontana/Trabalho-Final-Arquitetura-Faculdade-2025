@@ -1,6 +1,8 @@
 using AutoMapper;
 using Sigma.Infra.CrossCutting.IoC;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();

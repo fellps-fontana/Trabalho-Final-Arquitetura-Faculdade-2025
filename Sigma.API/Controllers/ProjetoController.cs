@@ -28,5 +28,13 @@ namespace Sigma.API.Controllers
             var projetos = await _projetoService.BuscarTodos();
             return Ok(projetos);
         }
+
+        [HttpGet("Filtro")]
+        public async Task<IActionResult> BuscarPeloIdEStatus(int Id)
+        {
+            var projetos = await _projetoService.BuscarTodos();
+            return Ok(projetos);
+        }
+
     }
 }

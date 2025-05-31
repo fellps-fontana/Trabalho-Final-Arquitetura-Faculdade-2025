@@ -36,6 +36,7 @@ namespace Sigma.Infra.Data.Context
                 }
             }
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
         }
 
     }

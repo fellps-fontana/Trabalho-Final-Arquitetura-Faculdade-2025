@@ -3,6 +3,7 @@ using Sigma.Application.Dtos;
 using Sigma.Application.Interfaces;
 using Sigma.Domain.Dtos;
 using Sigma.Domain.Entities;
+using Sigma.Domain.Enums;
 using Sigma.Domain.Interfaces.Repositories;
 
 namespace Sigma.Application.Services
@@ -11,7 +12,7 @@ namespace Sigma.Application.Services
     {
         private readonly IMapper _mapper;
         private readonly IProjetoRepository _projetoRepository;
-        
+
         public ProjetoService(IMapper mapper, IProjetoRepository projetoRepository)
         {
             _mapper = mapper;
@@ -26,6 +27,11 @@ namespace Sigma.Application.Services
         {
             var projetos = await _projetoRepository.BuscarTodos();
             return _mapper.Map<List<ProjetosDto>>(projetos);
+        }
+        public async Task<List<ProjetoCompletoDto>> BuscarPeloIdEStatus(StatusProjeto? status, int id)
+        {
+            var projetosFiltrados = await _projetoRepository.BuscarPeloIdEStatus(id,status);
+            return _mapper.Map<List<ProjetoCompletoDto>>(projetosFiltrados);
         }
     }
 }
