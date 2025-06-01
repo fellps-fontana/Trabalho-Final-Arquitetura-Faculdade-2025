@@ -31,23 +31,48 @@ namespace Sigma.Infra.Data.Repositories
             return true;
 
         }
+        public async Task<bool> Atualizar(Projeto entidade)
+        {
+            if (entidade.DataRealTermino.HasValue)
+            {
+                entidade.DataRealTermino = entidade.DataRealTermino.Value.ToUniversalTime();
+            }
+            if (entidade.PrevisaoTermino.HasValue)
+            {
+                entidade.PrevisaoTermino = entidade.PrevisaoTermino.Value.ToUniversalTime();
+            }
+            entidade.DataInicio = entidade.DataInicio.ToUniversalTime();
+
+            _dbContext.Set<Projeto>().Update(entidade);
+
+            await _dbContext.SaveChangesAsync();
+
+            return true;
+        }
 
         public async Task<List<Projeto>> BuscarTodos()
         {
             return await _dbContext.Projetos.ToListAsync();
         }
-        public async Task<List<Projeto>> BuscarPeloIdEStatus(int id, StatusProjeto? status)
+        public async Task<Projeto>BuscarPeloId(int id)
         {
-            var query = _dbContext.Projetos.AsQueryable();
-            if (id > 0)
-            {
-                query = query.Where(p => p.Id == id);
-            }
-            if (status.HasValue)
-            {
-                query = query.Where(p => p.Status == status.Value);
-            }
-            return await query.ToListAsync();
+            return await _dbContext.Projetos.FirstOrDefaultAsync(p => p.Id == id);
         }
+
+        public async Task<List<Projeto>> BuscarPeloStatus(StatusProjeto status)
+        {
+            return await _dbContext.Projetos.Where(p => p.Status == status).ToListAsync();
+        }
+
+        public async Task<bool> Deletar (Projeto projetoExcluir)
+        {
+            await _dbContext.Projetos
+                .Where(p => p.Id == projetoExcluir.Id)
+                .ExecuteDeleteAsync();
+
+            return true;
+        }
+
     }
+ 
 }
