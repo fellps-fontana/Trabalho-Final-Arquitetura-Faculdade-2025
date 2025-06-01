@@ -21,12 +21,16 @@ namespace Sigma.Infra.CrossCutting.IoC
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddScoped<IProjetoService, ProjetoService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IAuthService, AuthService>();
+
             return services;
         }
 
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IProjetoRepository, ProjetoRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             return services;
         }
 
